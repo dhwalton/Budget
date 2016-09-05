@@ -13,7 +13,19 @@
                     <td>@user.FirstName @user.LastName</td>
                     <td>@user.DisplayName</td>
                     <td>@user.Email</td>
-                    <td><span class="add-user">Remove (Coming Soon!)</span></td>
+                    <td>
+                        @* 
+                            Owners can remove other users
+                            Owners can't remove themselves unless all other users have been removed first
+                            Other users can only remove themselves    
+                        *@
+                        @if ((Model.Users.Count() == 1 && ViewBag.CurrentUserId == Model.OwnerId) || 
+                             (Model.OwnerId != ViewBag.CurrentUserId && user.Id == ViewBag.CurrentUserId) ||
+                             (Model.OwnerId == ViewBag.CurrentUserId && user.Id != ViewBag.CurrentUserId))
+                        {
+                            <span class="remove-user">@Html.ActionLink("X", "RemoveUser", new { userEmail = user.Email, householdId = Model.Id })</span>
+                        }
+                    </td>
                 </tr>
             }
         </table>

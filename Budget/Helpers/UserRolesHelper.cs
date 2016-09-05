@@ -12,24 +12,6 @@ public class UserRolesHelper
     private UserManager<ApplicationUser> manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
     private ApplicationDbContext db = new ApplicationDbContext();
 
-
-    //public void EmailUser(string userId, TicketNotifications n)
-    //{
-    //    var user = db.Users.Find(userId); 
-    //    if (user == null)
-    //    {
-    //        // Don't reveal that the user does not exist or is not confirmed
-    //        return;
-    //    }
-
-    //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-    //    // Send an email with this link
-    //    //string code = await manager.GeneratePasswordResetTokenAsync(user.Id);
-    //    manager.SendEmail(user.Id, "New Activity on Ticket '" + n.Ticket.Title + "'", 
-    //            "Ticket '" + n.Ticket.Title + "' has new activity: " + n.Message + "<p><a href='https://dhwalton-bugtracker.azurewebsites.net'>Click Here to Login.</a>");
-    //    return;
-    //}
-
     public string UserRolesString(string userId)
     {
         var sb = new StringBuilder();

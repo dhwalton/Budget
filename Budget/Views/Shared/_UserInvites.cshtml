@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Budgeter.Models.Invite>
+
+<section id="user-invites">
+    <h3>My Invitations</h3>
+    @foreach(var invite in Model)
+    {
+        <div class="row">
+            <div class="col-xs-6">
+                @invite.Household.Name
+            </div>
+            <div class="col-xz-6">
+                @Html.ActionLink("Accept","AcceptInvitation", new { HouseholdId = invite.HouseholdId }) | Decline
+            </div>
+        </div>
+    }
+</section>

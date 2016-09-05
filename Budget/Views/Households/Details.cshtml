@@ -6,11 +6,11 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Owner.FirstName)
+                Household Owner
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.Owner.FirstName)
+                @Html.DisplayFor(model => model.Owner.FirstName) @Html.DisplayFor(model => model.Owner.LastName)
             </dd>
     
             <dt>
@@ -19,24 +19,7 @@
     
             <dd>
                 @Html.DisplayFor(model => model.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Active)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Active)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Demo)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Demo)
-            </dd>
-    
+            </dd>    
         </dl>
     </div>
 @Html.Partial("_HouseholdUsers")

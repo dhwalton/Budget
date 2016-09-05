@@ -1,0 +1,24 @@
+﻿@model Budgeter.Models.Household
+
+<section id="invite">
+    <div id="invite-entry-modal">
+        <form>
+            <p>Invite a user by entering his or her email address below:</p>
+            <input type="text" id="invite-email" />
+            <input type="hidden" id="invite-household" value="@Model.Id" />
+            <button id="invite-submit">Invite</button>
+        </form>
+    </div>
+    <div id="invite-success">
+
+    </div>
+    <div id="invite-failure-permission">
+
+    </div>
+    <div id="invite-failure-inhousehold">
+
+    </div>
+    <div id="invite-failure-model">
+
+    </div>
+</section>

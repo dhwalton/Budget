@@ -5,3 +5,7 @@
 .user-list td {
     padding: 0.25em;
 }
+
+#user-invites {
+    padding: 1em 0;
+}
