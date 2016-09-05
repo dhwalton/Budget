@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Budget.Models;
+using Budgeter.Models;
 
-namespace Budget.Controllers
+namespace Budgeter.Controllers
 {
     [Authorize]
     public class ManageController : Controller
@@ -50,6 +50,50 @@ namespace Budget.Controllers
             }
         }
 
+
+        // Update user's first name, last name, display name
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string FirstName, string LastName, string DisplayName)
+        {
+            var userId = User.Identity.GetUserId();
+            var userHelper = new UserRolesHelper();
+
+            if (!String.IsNullOrEmpty(FirstName))
+            {
+                userHelper.SetUserFirstName(userId, FirstName);
+            }
+
+            if (!String.IsNullOrEmpty(LastName))
+            {
+                userHelper.SetUserLastName(userId, LastName);
+            }
+
+            if (!String.IsNullOrEmpty(DisplayName))
+            {
+                userHelper.SetUserDisplayName(userId, DisplayName);
+            }
+
+            ViewBag.FirstName = userHelper.GetUserFirstName(userId);
+            ViewBag.LastName = userHelper.GetUserLastName(userId);
+            ViewBag.DisplayName = userHelper.GetUserDisplayName(userId);
+
+            var model = new IndexViewModel
+            {
+                FirstName = userHelper.GetUserFirstName(userId),
+                LastName = userHelper.GetUserLastName(userId),
+                DisplayName = userHelper.GetUserDisplayName(userId),
+                HasPassword = HasPassword(),
+                PhoneNumber = UserManager.GetPhoneNumber(userId),
+                TwoFactor = UserManager.GetTwoFactorEnabled(userId),
+                Logins = UserManager.GetLogins(userId),
+                BrowserRemembered = AuthenticationManager.TwoFactorBrowserRemembered(userId)
+            };
+
+
+            return View(model);
+        }
+
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
@@ -64,8 +108,13 @@ namespace Budget.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var helper = new UserRolesHelper();
+            var user = helper.GetUserById(userId);
             var model = new IndexViewModel
             {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DisplayName = user.DisplayName,
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),

@@ -1,0 +1,46 @@
+﻿@model Budgeter.Models.Household
+
+
+    <div>
+        <h4>Household</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Owner.FirstName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Owner.FirstName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Active)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Active)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Demo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Demo)
+            </dd>
+    
+        </dl>
+    </div>
+@Html.Partial("_HouseholdUsers")
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

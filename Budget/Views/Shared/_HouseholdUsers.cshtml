@@ -1,0 +1,32 @@
+﻿@model Budgeter.Models.Household
+
+<section id="household-users">
+
+    @*@if (Model.AssignedUser == null)
+    {*@
+        <h4>Members of the Household:</h4>
+        <table class="user-list">
+            <tr><th>Name</th><th>Display Name</th><th>Email</th><th>Action</th></tr>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.FirstName @user.LastName</td>
+                    <td>@user.DisplayName</td>
+                    <td>@user.Email</td>
+                    <td><span class="add-user">Remove (Coming Soon!)</span></td>
+                </tr>
+            }
+        </table>
+    @*}
+    else
+    {
+        @Html.LabelFor(model => model.AssignedUserId, "Assigned User", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Label(Model.AssignedUser.Displayname, htmlAttributes: new { @class = "control-label" })
+            <span class="remove-manager">@Html.ActionLink(" X", "RemoveAssignedUserFromTicket", new { ticketId = Model.Id })</span>
+        </div>
+    }*@
+
+</section>
+
+

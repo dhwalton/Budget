@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Budget.Startup))]
-namespace Budget
+[assembly: OwinStartupAttribute(typeof(Budgeter.Startup))]
+namespace Budgeter
 {
     public partial class Startup
     {

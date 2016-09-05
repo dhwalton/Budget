@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Budget.Models
+namespace Budgeter.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

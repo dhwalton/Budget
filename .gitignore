@@ -243,3 +243,10 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Config files, other sensitive stuff
+Configuration.cs
+*.config
+Web.config
+private.config
+*.config

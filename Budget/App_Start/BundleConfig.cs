@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Budget
+namespace Budgeter
 {
     public class BundleConfig
     {
