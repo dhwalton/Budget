@@ -22,7 +22,11 @@
             </dd>    
         </dl>
     </div>
+<hr />
 @Html.Partial("_HouseholdUsers")
+<hr />
+@Html.Partial("_HouseholdAccounts")
+<hr />
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")

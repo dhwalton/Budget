@@ -31,7 +31,7 @@
                 </div>
             </div>
     
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -49,7 +49,7 @@
                         @Html.ValidationMessageFor(model => model.Demo, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>
+            </div>*@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -58,9 +58,13 @@
             </div>
         </div>
     }
-    
-    @Html.Partial("_HouseholdUsers")
+    <hr />
     @Html.Partial("_Invite")
+    <hr />
+    @Html.Partial("_HouseholdUsers")
+    <hr />
+    @Html.Partial("_HouseholdAccounts")
+    <hr />
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>

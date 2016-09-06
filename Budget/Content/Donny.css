@@ -9,3 +9,40 @@
 #user-invites {
     padding: 1em 0;
 }
+
+.remove-user, .add-user, .household-owner, .household-user {
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+    padding: 2px 4px;
+    border-radius: 0.25em;
+    font-weight: 700;
+    margin: 0 0.5em;
+}
+
+.household-owner {
+    background-color: blue;
+    color: #fff;
+}
+
+.add-user, .household-user {
+    background-color: lime;
+}
+
+.add-user a {
+    color: #000;
+}
+
+.remove-user {
+    color: #fff;
+    background-color: #f00;
+}
+
+.remove-user a {
+    color: #fff;
+}
+
+.user-list tr td {
+    padding: 0.5em;
+}
+.user-list tr:nth-child(even) {
+    background-color: rgba(0,0,0,0.15);
+}

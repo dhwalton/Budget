@@ -6,10 +6,20 @@
     {*@
         <h4>Members of the Household:</h4>
         <table class="user-list">
-            <tr><th>Name</th><th>Display Name</th><th>Email</th><th>Action</th></tr>
+            <tr><th>Role</th><th>Name</th><th>Display Name</th><th>Email</th><th>Action</th></tr>
             @foreach (var user in Model.Users)
             {
                 <tr>
+                    <td>
+                        @if(user.Id == Model.OwnerId)
+                        {
+                            <span class="household-owner">Owner</span>
+                        }
+                        else
+                        {
+                            <span class="household-user">User</span>
+                        }
+                    </td>
                     <td>@user.FirstName @user.LastName</td>
                     <td>@user.DisplayName</td>
                     <td>@user.Email</td>

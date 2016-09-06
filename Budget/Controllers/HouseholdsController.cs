@@ -57,11 +57,11 @@ namespace Budget.Controllers
                     {
                         householdHelper.DeactivateHousehold(householdId);
                     }
-                    else
-                    {
-                        // remove the user from the household
-                        householdHelper.RemoveUserFromHousehold(user.Id, householdId);
-                    }
+                }
+                else
+                {
+                    // remove the user from the household
+                    householdHelper.RemoveUserFromHousehold(user.Id, householdId);
                 }
             }
             return RedirectToAction("Edit", new { id = householdId });
@@ -189,7 +189,7 @@ namespace Budget.Controllers
                         Subject = "Household Budgeter - Invitation to join '" + household.Name + "'",
                         Text = user.FirstName + " " + user.LastName + " has invited you to join the household '" + household.Name + "'"
                                + "on Budgeter! Click the link below to register or login!\n\n"
-                               + "http://dhwalton-budgeter.azurewebsites.net"
+                               + "http://dhwalton-budget.azurewebsites.net"
 
                     };
 
@@ -282,7 +282,7 @@ namespace Budget.Controllers
                 return HttpNotFound();
             }
             ViewBag.CurrentUserId = User.Identity.GetUserId();
-            ViewBag.OwnerId = new SelectList(db.Users, "Id", "FirstName", household.OwnerId);
+            ViewBag.OwnerId = new SelectList(db.Users, "Id", "DisplayName", household.OwnerId);
             return View(household);
         }
 

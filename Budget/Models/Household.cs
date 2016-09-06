@@ -19,7 +19,9 @@ namespace Budgeter.Models
             Invites = new HashSet<Invite>();
         }
         public int Id { get; set; }
+        [Display(Name = "Household Name")]
         public string Name { get; set; }
+        [Display(Name = "Household Owner")]
         public string OwnerId { get; set; }
         public bool Active { get; set; }
         public bool Demo { get; set; }
