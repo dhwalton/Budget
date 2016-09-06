@@ -8,7 +8,7 @@
         <table class="user-list">
             <tr><th>Role</th><th>Name</th><th>Display Name</th><th>Email</th><th>Action</th></tr>
             @foreach (var user in Model.Users)
-            {
+            { 
                 <tr>
                     <td>
                         @if(user.Id == Model.OwnerId)

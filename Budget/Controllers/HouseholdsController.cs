@@ -13,7 +13,7 @@ using System.Configuration;
 
 namespace Budget.Controllers
 {
-    [Authorize]
+    [Authorize] 
     public class HouseholdsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
