@@ -93,7 +93,13 @@ namespace Budget.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
             Account account = db.Accounts.Find(id);
+            AccountEditViewModel model = new AccountEditViewModel();
+
+            model.Account = account;
+            model.ActiveTransactions = account.Transactions.Where(t => t.Active).ToList();
+
             if (account == null)
             {
                 return HttpNotFound();
@@ -107,11 +113,11 @@ namespace Budget.Controllers
                 return RedirectToAction("Details", new { id = id });
             }
 
-
+            //account.Transactions = account.Transactions.Where(t => t.Active).ToList();
 
             ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "FirstName", account.OwnerId);
-            return View(account);
+            return View(model);
         }
 
         // POST: Accounts/Edit/5

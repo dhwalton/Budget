@@ -16,6 +16,19 @@ namespace Budgeter.Models
             Transactions = new HashSet<Transaction>();
         }
 
+        public float BalanceAmt()
+        {
+            float result = 0;
+            foreach (var transasction in Transactions)
+            {
+                if (transasction.Active && !transasction.Void)
+                {
+                    result += transasction.Amount;
+                }
+            }
+            return result;
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public int HouseholdId { get; set; }

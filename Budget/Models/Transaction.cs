@@ -18,7 +18,12 @@ namespace Budgeter.Models
         public bool Reconciled { get; set; }
         public float ReconciledAmount { get; set; }
         public string Description { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yy, h:mm tt}")]
         public DateTimeOffset Date { get; set; }
+
+        public bool Void { get; set; }
+
         public float Amount { get; set; }
         public bool Active { get; set; }
         public virtual ApplicationUser User { get; set; }

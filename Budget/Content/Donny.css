@@ -10,7 +10,13 @@
     padding: 1em 0;
 }
 
-.remove-user, .add-user, .household-owner, .household-user {
+.remove-user, 
+.add-user, 
+.household-owner, 
+.household-user, 
+.void-action, 
+.remove-action,
+.unvoid-action {
     box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
     padding: 2px 4px;
     border-radius: 0.25em;
@@ -23,6 +29,18 @@
     color: #fff;
 }
 
+.void-action, .unvoid-action {
+    background-color: #eee;
+}
+
+.void-action a {
+    color: firebrick;
+}
+
+.unvoid-action a {
+    color: darkgreen;
+}
+
 .add-user, .household-user {
     background-color: lime;
 }
@@ -31,7 +49,7 @@
     color: #000;
 }
 
-.remove-user {
+.remove-user, .remove-action {
     color: #fff;
     background-color: #f00;
 }
@@ -45,4 +63,36 @@
 }
 .user-list tr:nth-child(even) {
     background-color: rgba(0,0,0,0.15);
+}
+
+#add-withdrawal-modal, 
+#add-deposit-modal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    background-color: lightgreen;
+    padding: 2em;
+    border-radius: 0.25em;
+    border: 1px dashed green;
+    display: none;
+    z-index:3800;
+}
+
+.void-transaction td {
+    text-decoration: line-through;
+}
+
+.void-transaction td.table-action {
+    text-decoration:none;
+}
+
+.btn-transaction {
+
+}
+
+.overdraft-alert {
+    color: firebrick;
+    font-weight: 700;
 }

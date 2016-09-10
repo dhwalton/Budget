@@ -6,8 +6,9 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/Donny.css")
+    @Styles.Render("~/Content/jquery.datetimepicker.css")
     @Scripts.Render("~/bundles/modernizr")
-
+    
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -39,7 +40,13 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/js/jquery.simplemodal.1.4.4.min.js")
+    @Scripts.Render("~/js/jquery.datetimepicker.min.js")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    @section scripts {
+      
+    }
 </body>
 </html>
