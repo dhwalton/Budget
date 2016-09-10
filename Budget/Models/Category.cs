@@ -12,5 +12,6 @@ namespace Budgeter.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool IsDeposit { get; set; }
     }
 }

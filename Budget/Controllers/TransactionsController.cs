@@ -68,10 +68,20 @@ namespace Budget.Controllers
         }
 
         // GET: Transactions/Create
-        public ActionResult Create(int accountId)
+        public ActionResult Create(int accountId, bool isDeposit)
         {
             ViewBag.AccountId = accountId;
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+
+            // only show deposit or withdrawal categories
+            if (isDeposit)
+            {
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.IsDeposit), "Id", "Name");
+            }
+            else
+            {
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.IsDeposit == false), "Id", "Name");
+            }
+            
             ViewBag.UserId = User.Identity.GetUserId();
             return View();
         }
@@ -86,6 +96,17 @@ namespace Budget.Controllers
         {
             if (ModelState.IsValid)
             {
+                // always start with a positive amount
+                transaction.Amount = Math.Abs(transaction.Amount);
+
+                // check to see if the transaction isn't a deposit
+                if (!TransactionHelper.CategoryIsDeposit(transaction.CategoryId))
+                {
+                    // if not, make the amount negative
+                    transaction.Amount *= -1;
+                }
+
+                // initialize some of the fields
                 transaction.UserId = User.Identity.GetUserId();
                 transaction.TypeId = 0;
                 transaction.Active = true;
@@ -97,10 +118,12 @@ namespace Budget.Controllers
                 return RedirectToAction("Edit","Accounts",new { id = transaction.AccountId });
             }
 
-            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", transaction.UserId);
-            return View(transaction);
+            //ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
+            //ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
+            //ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", transaction.UserId);
+            //return View(transaction);
+
+            return RedirectToAction("Edit", "Accounts", new { id = transaction.AccountId });
         }
 
 
