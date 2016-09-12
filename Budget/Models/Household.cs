@@ -18,6 +18,7 @@ namespace Budgeter.Models
             Users = new HashSet<ApplicationUser>();
             Invites = new HashSet<Invite>();
         }
+
         public int Id { get; set; }
         [Display(Name = "Household Name")]
         public string Name { get; set; }

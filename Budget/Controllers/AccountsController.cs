@@ -23,6 +23,24 @@ namespace Budget.Controllers
             return View(accounts.ToList());
         }
 
+        // toggles whether or not an account is active
+        public ActionResult ToggleAccount(int id)
+        {
+            var account = db.Accounts.Find(id);
+            var userId = User.Identity.GetUserId();
+            
+            // the user performing this action must either own the household or the account
+            if (userId == account.Household.OwnerId || userId == account.OwnerId)
+            {
+                account.Active = !account.Active;
+                db.Entry(account).State = EntityState.Modified;
+                db.SaveChanges();
+            }           
+
+            return RedirectToAction("Edit", "Households", new { id = account.Household.Id });
+        }
+
+
         // GET: Accounts/Details/5
         public ActionResult Details(int? id)
         {
@@ -99,6 +117,7 @@ namespace Budget.Controllers
 
             model.Account = account;
             model.ActiveTransactions = account.Transactions.Where(t => t.Active).ToList();
+            model.InactiveTransactions = account.Transactions.Where(t => t.Active == false).ToList();
 
             if (account == null)
             {

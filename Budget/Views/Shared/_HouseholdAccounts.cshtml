@@ -1,19 +1,29 @@
-﻿@model Budgeter.Models.Household
+﻿@model Budgeter.Models.HouseholdEditViewModel
 
 <section id="household-accounts">
         <h4>Accounts:</h4>
-        <div>@Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Id }, null)</div>
-        <table class="user-list">
-            <tr><th>Account Name</th><th>Account Owner</th><th>Balance</th><th>Action</th></tr>
-            @foreach (var account in Model.Accounts)
+        <div>
+            @Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Household.Id }, null) 
+            @if (Model.InactiveAccounts.Count() > 0)
+            {
+                <span>| <a href="#" id="view-closed">View Closed Accounts</a></span>
+            }
+        </div>
+        <table class="user-list data-table">
+            <thead>
+                <tr><th>Account Name</th><th>Account Owner</th><th>Balance</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+            @foreach (var account in Model.ActiveAccounts)
             { 
                 <tr>
                     <td>@Html.ActionLink(@account.Name,"Edit","Accounts", new { id = account.Id }, null)</td>
                     <td>@account.Owner.FirstName @account.Owner.LastName</td>
-                    <td>@account.Balance</td>
-                    <td>Some links go here!</td>
+                    <td>@account.BalanceAmt().ToString("$0.00")</td>
+                    <td><span class="remove-action">@Html.ActionLink("Close", "ToggleAccount", "Accounts", new { id = account.Id }, null)</span></td>
                 </tr>
             }
+            </tbody>
         </table>
 </section>
 

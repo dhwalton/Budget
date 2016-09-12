@@ -1,0 +1,77 @@
+﻿@model Budgeter.Models.BudgetViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+<div class="edit-header">
+    <span>@Model.Budget.Name</span>
+    <button id="btn-edit-budget"><i class="fa fa-pencil"></i></button>
+</div>
+
+ <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <h4>Income</h4>
+                    @Html.Partial("_BudgetItemList", Model.IncomeBudgetItems)
+                </div>
+                <hr />
+                <div>
+                    <h4>Expenses</h4>
+                    @Html.Partial("_BudgetItemList", Model.ExpenseBudgetItems)
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="radio-container">
+                    <input type="radio" name="item-type" class="radio-income" checked /> Income
+                    <input type="radio" name="item-type" class="radio-expense" /> Expense
+                </div>
+                <div id="add-budget-income">
+                    <h1>INCOME</h1>
+                    @using (Html.BeginForm())
+                    {
+                        
+                    }
+                </div>
+                <div id="add-budget-expense">
+                    <h1>EXPENSE</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        @Html.ActionLink("Back to Household", "Edit", "Households", new { id = Model.Budget.HouseholdId }, null)
+    </div>
+
+<div class="form-horizontal" id="edit-budget-modal">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Budget.Id)
+        @Html.HiddenFor(model => model.Budget.HouseholdId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Budget.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Budget.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Budget.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/js/Budget.js")
+    }

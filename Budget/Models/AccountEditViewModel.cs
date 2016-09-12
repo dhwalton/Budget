@@ -13,5 +13,6 @@ namespace Budgeter.Models
     {
         public Account Account { get; set; }
         public ICollection<Transaction> ActiveTransactions { get; set; }
+        public ICollection<Transaction> InactiveTransactions { get; set; }
     }
 }

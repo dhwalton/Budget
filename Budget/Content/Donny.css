@@ -54,7 +54,7 @@
     background-color: #f00;
 }
 
-.remove-user a {
+.remove-user a, .remove-action a {
     color: #fff;
 }
 
@@ -66,7 +66,12 @@
 }
 
 #add-withdrawal-modal, 
-#add-deposit-modal {
+#add-deposit-modal,
+#edit-deposit-modal,
+#closed-accounts-modal,
+#deleted-transaction-modal,
+#create-budget-modal,
+#edit-budget-modal {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -95,4 +100,27 @@
 .overdraft-alert {
     color: firebrick;
     font-weight: 700;
+}
+
+.b-row {
+    border: 1px dashed red;
+}
+
+
+.edit-header span {
+    font-size: 1.7em;
+    font-weight: 500;
+    margin-right: 0.25em;
+}
+
+.edit-header {
+    padding-top: 0.5em;
+}
+
+#add-budget-expense {
+    display: none;
+}
+
+.radio-container {
+
 }

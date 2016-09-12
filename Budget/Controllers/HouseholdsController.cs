@@ -270,6 +270,8 @@ namespace Budget.Controllers
                 var user = db.Users.Find(userId);
                 if (household.Users.Contains(user))
                 {
+                                     
+                    
                     // if so, redirect to Details
                     return RedirectToAction("Details", new { id = id });
                 }
@@ -281,9 +283,16 @@ namespace Budget.Controllers
             {
                 return HttpNotFound();
             }
+
+            var model = new HouseholdEditViewModel();
+            model.Household = db.Households.Find(id);
+            model.ActiveAccounts = model.Household.Accounts.Where(a => a.Active).ToList();
+            model.InactiveAccounts = model.Household.Accounts.Where(a => a.Active == false).ToList();
+            model.ActiveBudgets = model.Household.Budgets.Where(a => a.Active).ToList();
+
             ViewBag.CurrentUserId = User.Identity.GetUserId();
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "DisplayName", household.OwnerId);
-            return View(household);
+            return View(model);
         }
 
         // POST: Households/Edit/5

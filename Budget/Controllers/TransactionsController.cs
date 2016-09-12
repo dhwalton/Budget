@@ -48,12 +48,18 @@ namespace Budget.Controllers
         //}
 
        [HttpGet]
-       public ActionResult DeleteTransaction(int id)
+       public ActionResult ToggleTransaction(int id)
         {
             var transaction = db.Transaction.Find(id);
-            transaction.Active = false;
-            db.Entry(transaction).State = EntityState.Modified;
-            db.SaveChanges();
+            var userId = User.Identity.GetUserId();
+            // user must be the owner of account or owner of household
+            if (userId == transaction.Account.OwnerId || userId == transaction.Account.Household.OwnerId)
+            {
+                // toggle active
+                transaction.Active = !transaction.Active;
+                db.Entry(transaction).State = EntityState.Modified;
+                db.SaveChanges();
+            }
             return RedirectToAction("Edit","Accounts", new { id = transaction.AccountId });
         }
 
@@ -156,7 +162,7 @@ namespace Budget.Controllers
             {
                 db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit","Accounts", new { id = transaction.AccountId });
             }
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);

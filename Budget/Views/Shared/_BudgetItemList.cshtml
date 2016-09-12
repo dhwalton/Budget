@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Budgeter.Models.BudgetItem>
+    <table class="user-data data-table">
+    <thead>
+        <tr><th>Name</th><th>Category</th><th>Amount</th><th>Frequency</th><th>Action</th></tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Category.Name
+            </td>
+            <td>
+                @item.Amount
+            </td>
+            <td>
+                @item.Frequency
+            </td>
+            <td>
+                Edit, Remove (Coming Soon)
+            </td>
+        </tr>
+    }
+    </table>
+
+
+

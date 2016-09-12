@@ -6,82 +6,102 @@
 
 <h2>Edit</h2>
 
+<div class="row">
+    <div class="col-md-6">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Account</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Account.Id)
+            <div class="form-horizontal">
+                <h4>Account</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Account.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Account.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Account.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Account.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Account.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Account.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Account.HouseholdId, "HouseholdId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("HouseholdId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Account.HouseholdId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.HouseholdId, "HouseholdId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("HouseholdId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Account.HouseholdId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Account.OwnerId, "OwnerId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("OwnerId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Account.OwnerId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.OwnerId, "OwnerId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("OwnerId", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Account.OwnerId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Account.Balance, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                
-                <label class="control-label col-md-2">
-                    @Model.Account.BalanceAmt().ToString("$0.00")
-                    @if (Model.Account.BalanceAmt() < 0)
-                    {
-                        <span class="overdraft-alert">OVERDRAFT!!!</span>
-                    }
-                </label>
-                @*@Html.EditorFor(model => model.Account.Balance, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Account.Balance, "", new { @class = "text-danger" })*@
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.Balance, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Account.Active, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Account.Active)
-                    @Html.ValidationMessageFor(model => model.Account.Active, "", new { @class = "text-danger" })
+                        <label class="control-label col-md-2">
+                            @Model.Account.BalanceAmt().ToString("$0.00")
+                            @if (Model.Account.BalanceAmt() < 0)
+                            {
+                                <span class="overdraft-alert">OVERDRAFT!!!</span>
+                            }
+                        </label>
+                        @*@Html.EditorFor(model => model.Account.Balance, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Account.Balance, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Account.Active)
+                            @Html.ValidationMessageFor(model => model.Account.Active, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Account.ReconciledBalance, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Account.ReconciledBalance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Account.ReconciledBalance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Account.ReconciledBalance, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Account.ReconciledBalance, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Account.ReconciledBalance, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        }
     </div>
-} 
+    <div id="col-md-6">
+        <h4>Budget Items</h4>
+    </div>
+</div>
+<hr />
+
+<h4>Transactions:</h4>
+<div>
+    @*@Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Id }, null)*@
+    <button id="btn-withdrawal" class="btn-transaction">Withdrawal</button>
+    <button id="btn-deposit" class="btn-transaction">Deposit</button>
+    @if (Model.InactiveTransactions.Count() > 0)
+    {
+        <button id="btn-deleted-transactions" class="btn-transaction">Deleted Transactions</button>
+    }
+</div>
+
+<hr />
 
 @Html.Partial("_AccountTransactions",Model.ActiveTransactions)
 
@@ -93,26 +113,60 @@
 @* Modal to add a withdrawal transaction *@
 <div id="add-withdrawal-modal">
     <h3>Make a Withdrawal:</h3>
-    @Html.Action("Create", "Transactions", new { accountId = Model.Account.Id })
+    @Html.Action("Create", "Transactions", new { accountId = Model.Account.Id, isDeposit = "false" })
 </div>
 
 @* Modal to add a deposit transaction *@
 <div id="add-deposit-modal">
     <h3>Make a Deposit:</h3>
-    @Html.Action("Create", "Transactions", new { accountId = Model.Account.Id })
+    @Html.Action("Create", "Transactions", new { accountId = Model.Account.Id, isDeposit = "true" })
 </div>
+
+@* Modal to edit a transaction *@
+<div id="edit-deposit-modal">
+    <h3>Make a Deposit:</h3>
+    
+</div>
+
+@* Modal to view deleted transactions *@
+<div id="deleted-transaction-modal">
+    <h3>Deleted Transactions:</h3>
+    <table class="user-list data-table">
+        <thead>
+            <tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+            @foreach(var transaction in Model.InactiveTransactions)
+            { 
+            <tr>
+                <td>@transaction.Date.ToString("mm/dd/yyyy")</td>
+                <td>@transaction.Description</td>
+                <td>@transaction.Category.Name</td>
+                <td>@transaction.Amount</td>
+                <td><span class="add-user">@Html.ActionLink("Undelete", "ToggleTransaction", "Transactions", new { id = transaction.Id }, null)</span></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/js/TransactionButtons.js")
     <script>
         $(document).ready(function () {
-            
+
             $('#btn-withdrawal').click(function () {
                 $('#add-withdrawal-modal').modal();
             });
 
             $('#btn-deposit').click(function () {
                 $('#add-deposit-modal').modal();
+            });
+            
+            $('#btn-deleted-transactions').click(function () {
+                $('#deleted-transaction-modal').modal();
             });
 
         });

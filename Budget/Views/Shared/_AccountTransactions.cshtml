@@ -1,14 +1,11 @@
 ﻿@model ICollection<Budgeter.Models.Transaction>
 
 <section id="account-transactions">
-        <h4>Transactions:</h4>
-        <div>
-            @*@Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Id }, null)*@
-            <button id="btn-withdrawal" class="btn-transaction">Withdrawal</button>
-            <button id="btn-deposit" class="btn-transaction">Deposit</button>
-        </div>
-        <table class="user-list">
-            <tr><th>Date</th><th>Description</th><th>Amount</th><th>Action</th></tr>
+        <table class="user-list data-table">
+            <thead>
+                <tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th>Action</th></tr>
+            </thead>
+            <tbody>
             @foreach (var transaction in Model)
             {
                 var rowClass = "";
@@ -19,8 +16,13 @@
                 <tr class="@rowClass">
                     <td>@transaction.Date.ToString("MM/dd/yyyy")</td>
                     <td>@transaction.Description</td>
+                    <td>@transaction.Category.Name</td>
                     <td>@transaction.Amount.ToString("$0.00")</td>
                     <td class="table-action">
+
+                        <button class="btn-edit-transaction" id="@transaction.Id"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
+                        @*<span class="edit-action">@Html.ActionLink("<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>", "Edit", "Transactions", new { id = transaction.Id }, null)</span>*@
                         @if (transaction.Void)
                         {
                             <span class="unvoid-action">@Html.ActionLink("Restore", "VoidTransaction", "Transactions", new { id = transaction.Id }, null)</span>
@@ -29,11 +31,13 @@
                         {
                             <span class="void-action">@Html.ActionLink("VOID", "VoidTransaction", "Transactions", new { id = transaction.Id }, null)</span>
                         }
-                        
-                        <span class="remove-user">@Html.ActionLink("X", "DeleteTransaction", "Transactions", new { id = transaction.Id }, null)</span>
+
+                        <span class="remove-user">@Html.ActionLink("X", "ToggleTransaction", "Transactions", new { id = transaction.Id }, null)</span>
                     </td>
                 </tr>
-            }
+                }
+            </tbody>
+
         </table>
 </section>
 

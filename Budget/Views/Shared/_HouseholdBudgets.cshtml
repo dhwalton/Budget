@@ -1,0 +1,42 @@
+﻿@model Budgeter.Models.HouseholdEditViewModel
+
+<section id="household-budget-items">
+        <h4>Budgets</h4> <button id="btn-create-budget">Create a Budget...</button>
+            @*@Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Household.Id }, null)*@ 
+        <hr />
+
+        @if (Model.ActiveBudgets.Count() > 0) { 
+            @*<div class="row b-row">
+                <div class="col-xs-6">Name</div>
+                <div class="col-xs-6">Action</div>
+            </div>
+
+            foreach (var budget in Model.ActiveBudgets)
+            {
+                <div class="row b-row">
+                    <div class="col-xs-6">@budget.Name</div>
+                    <div class="col-xs-6"><span class="remove-action"><i class="fa fa-trash" aria-hidden="true"></i></span></div>
+                </div>
+            }*@
+        <table class="user-data data-table-bare">
+            <thead>
+                <tr><th>Budget Name</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+            @foreach (var budget in Model.ActiveBudgets)
+            { 
+                <tr>
+                    <td>@Html.ActionLink(@budget.Name, "Edit", "Budgets", new {id = budget.Id}, null)</td>
+                    <td><span class="remove-action"><i class="fa fa-trash" aria-hidden="true"></i></span></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        }
+</section>
+
+<div id="create-budget-modal">
+    @Html.Action("Create","Budgets", new { householdId = Model.Household.Id })
+</div>
+
+
