@@ -31,7 +31,8 @@
                     <h1>INCOME</h1>
                     @using (Html.BeginForm())
                     {
-                        
+                        @Html.Hidden("HouseholdId", Model.Budget.HouseholdId)
+                        @Html.Hidden("")
                     }
                 </div>
                 <div id="add-budget-expense">

@@ -122,5 +122,10 @@
 }
 
 .radio-container {
+    border: 1px solid #eee;
+    padding: 1em;
+}
 
+.radio-container input {
+    margin-left: 2em;
 }
