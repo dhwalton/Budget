@@ -5,13 +5,14 @@
     @Scripts.Render("~/bundles/jqueryval")
     <div class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <div class="light content-col">
             @using (Html.BeginForm("Create", "Transactions", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    <h4>Household</h4>
+                    <h4>Household Info</h4>
                     <hr />
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Household.Id)
@@ -32,26 +33,6 @@
                         </div>
                     </div>
 
-                    @*<div class="form-group">
-                        @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <div class="checkbox">
-                                @Html.EditorFor(model => model.Active)
-                                @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Demo, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            <div class="checkbox">
-                                @Html.EditorFor(model => model.Demo)
-                                @Html.ValidationMessageFor(model => model.Demo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>*@
-
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
                             <input type="submit" value="Save" class="btn btn-default" />
@@ -59,24 +40,45 @@
                     </div>
                 </div>
             }
+            </div>
         </div>
-        <div class="col-md-6">
-            @Html.Partial("_HouseholdBudgets")
+        <div class="col-md-3">
+            <div class="light content-col">
+                @Html.Partial("_HouseholdBudgets")
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="light content-col">
+                @Html.Partial("_HouseholdUsers", Model.Household)
+                @if (ViewBag.CurrentUserId == Model.Household.OwnerId)
+                {
+                    @Html.Partial("_Invite",Model.Household)
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="content-col light">
+                <h4>Chart</h4>
+                <hr />
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="content-col light">
+                @Html.Partial("_HouseholdAccounts")
+            </div>
         </div>
     </div>
 </div>
 
 
     <hr />
-    @Html.Partial("_Invite", Model.Household)
-    <hr />
-    @Html.Partial("_HouseholdUsers", Model.Household)
-    <hr />
-    @Html.Partial("_HouseholdAccounts")
-    <hr />
-    <div>
+    
+
+    @*<div>
         @Html.ActionLink("Back to List", "Index")
-    </div>
+    </div>*@
 
 <div id="closed-accounts-modal">
     <table class="user-list data-table">

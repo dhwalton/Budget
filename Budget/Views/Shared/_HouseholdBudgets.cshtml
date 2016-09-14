@@ -1,10 +1,10 @@
 ﻿@model Budgeter.Models.HouseholdEditViewModel
 
 <section id="household-budget-items">
-        <h4>Budgets</h4> <button id="btn-create-budget">Create a Budget...</button>
+        <h4>Budgets</h4> 
             @*@Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Household.Id }, null)*@ 
         <hr />
-
+    
         @if (Model.ActiveBudgets.Count() > 0) { 
             @*<div class="row b-row">
                 <div class="col-xs-6">Name</div>
@@ -33,6 +33,9 @@
             </tbody>
         </table>
         }
+    <p>
+        <button id="btn-create-budget">Create a Budget...</button>
+    </p>
 </section>
 
 <div id="create-budget-modal">

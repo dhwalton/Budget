@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Budgeter.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,21 @@ namespace Budgeter.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult _HouseholdMenuItem()
+        {
+            var userId = User.Identity.GetUserId();
+
+            // only return households to which this user belongs
+            var model = db.Households.Where(h => h.Users.Where(u => u.Id == userId).Any());
+
+            return PartialView(model);
         }
 
         public ActionResult About()

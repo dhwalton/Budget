@@ -1,0 +1,152 @@
+﻿/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+.light {
+  background-color: rgba(255,255,255,0.85);
+  background-color: #F3FFE2;
+  border: 1px solid #EB7F00;
+  border-radius: 0.5em;
+  box-shadow: 1px 1px 5px #999;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  background-color: #ACF0F2;
+  color: #666;
+}
+hr {
+  border-color: #EB7F00;
+  margin: 0.55em;
+}
+h1,h2,h3,h4 {
+  margin: 0;
+}
+
+h4 {
+  font-weight: 700;
+}
+
+.col-md-12 {
+  
+}
+
+.half-height {
+  min-height: 50%;
+}
+.full-height {
+  min-height: 100%;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+body > .container {
+  padding: 10px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+.footer {
+  box-shadow: -1px -1px 10px #666;
+}
+
+.footer .text-muted {
+  font-weight: 700;
+}
+
+nav {
+  box-shadow: 1px 1px 10px #666;
+}
+
+.black {
+  background-color: #000;
+  color: #fff;
+}
+
+.primary {
+  background-color: #225378;
+}
+
+nav.primary {
+  color: #fff;
+  border: 0;
+}
+
+.accent {
+    background-color: #EB7F00;
+}
+
+.navbar-default a, .text-muted {
+  color: #fff !important;
+}
+
+.data-table {
+  width: 100%;
+}
+
+.neutral-1 {
+  background-color: #ACF0F2;
+}
+
+.content-col {
+  padding: 1em;
+  margin: 0.5em 0;
+  min-height: 220px;
+}
+
+.action {
+  text-align: center;
+}
+
+.data-table tr:nth-child(even) {
+  background-color: rgba(0,0,0,0.1);
+  background-color: #ACF0F2;
+}
+
+.data-table td, .data-table th {
+  padding: 0.25em;
+}
+
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    background-color: rgba(0,0,0,0.25) !important;
+}
+
+.dropdown-menu   li   a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.428571429;
+    white-space: nowrap;
+}
+
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #ACF0F2;
+    border-bottom-color: #ACF0F2;
+}

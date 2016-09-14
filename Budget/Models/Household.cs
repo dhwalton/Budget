@@ -20,9 +20,9 @@ namespace Budgeter.Models
         }
 
         public int Id { get; set; }
-        [Display(Name = "Household Name")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
-        [Display(Name = "Household Owner")]
+        [Display(Name = "Owner")]
         public string OwnerId { get; set; }
         public bool Active { get; set; }
         public bool Demo { get; set; }

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Donny.css")
+    @Styles.Render("~/Content/template.css")
+    @Styles.Render("~/Content/jquery.datetimepicker.css")
+    @Styles.Render("~/Content/font-awesome/css/font-awesome.min.css")
+    @Styles.Render("~/Content/DataTables/css/jquery.dataTables.min.css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+</head>
+<body>
+    <body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
+
+        <nav class="navbar navbar-default navbar-fixed-top primary">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Household Budgeter</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ">
+
+                        <!-- Household list -->
+                        @if (User.Identity.IsAuthenticated) {
+                            @*<li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Households <span class="caret"></span></a>
+                                <ul class="dropdown-menu primary">
+                                    <li class="accent"><a href="#">Create</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">Household 1</a></li>
+                                    <li><a href="#">Household 2</a></li>
+                                </ul>
+                            </li>*@
+                            @Html.Action("_HouseholdMenuItem", "Home")
+                        }
+
+                        <!-- User Actions -->
+                        @Html.Partial("_LoginPartial")
+                                                
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+
+        <!-- Begin page content -->
+        <div class="container">
+            @RenderBody()
+        </div>
+
+        <footer class="footer black">
+            <div class="container">
+                <p class="text-muted">
+                    Created by
+                    <a href="https://dhwalton-portfolio.azurewebsites.net">Donny Walton</a>
+                </p>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/js/jquery.simplemodal.1.4.4.min.js")
+        @Scripts.Render("~/js/jquery.datetimepicker.min.js")
+        @Scripts.Render("~/js/DateTimePicker.js")
+        @Scripts.Render("~/Content/DataTables/js/jquery.dataTables.min.js")
+        @Scripts.Render("~/js/DataTable.js")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+        @section scripts {
+
+        }
+    </body>
+</html>

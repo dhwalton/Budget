@@ -62,6 +62,22 @@ namespace Budget.Controllers
             return View(budgets);
         }
 
+        [HttpPost]
+        public ActionResult AddBudgetItem([Bind(Include = "Id,BudgetId,Name,Amount,Frequency,CategoryId")] BudgetItem budgetItem)
+        {
+            if (ModelState.IsValid)
+            {
+                budgetItem.Amount = Math.Abs(budgetItem.Amount);
+                if (!TransactionHelper.CategoryIsDeposit(budgetItem.CategoryId))
+                {
+                    budgetItem.Amount *= -1;
+                }
+                db.BudgetItems.Add(budgetItem);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Edit", new { id = budgetItem.BudgetId });
+        }
+
         // GET: Budgets/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -74,7 +90,8 @@ namespace Budget.Controllers
             {
                 return HttpNotFound();
             }
-           
+            ViewBag.IncomeCategories = new SelectList(db.Categories.Where(c => c.IsDeposit), "Id", "Name");
+            ViewBag.ExpenseCategories = new SelectList(db.Categories.Where(c => c.IsDeposit == false), "Id", "Name");
             return View(model);
         }
 
@@ -87,6 +104,7 @@ namespace Budget.Controllers
         {
             if (ModelState.IsValid)
             {
+                budgets.Active = true;
                 db.Entry(budgets).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Edit", new { id = budgets.Id });

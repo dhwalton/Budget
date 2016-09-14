@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Budgeter.Models.BudgetItem>
-    <table class="user-data data-table">
+    <table class="user-data data-table-bare">
     <thead>
         <tr><th>Name</th><th>Category</th><th>Amount</th><th>Frequency</th><th>Action</th></tr>
     </thead>
@@ -13,13 +13,13 @@
                 @item.Category.Name
             </td>
             <td>
-                @item.Amount
+                @Math.Abs(item.Amount).ToString("$0.00")
             </td>
             <td>
                 @item.Frequency
             </td>
             <td>
-                Edit, Remove (Coming Soon)
+                <span class="remove-action"><i class="fa fa-trash"></i></span>
             </td>
         </tr>
     }

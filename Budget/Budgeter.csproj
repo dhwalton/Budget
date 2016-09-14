@@ -242,6 +242,7 @@
     <Content Include="Content\DataTables\js\dataTables.jqueryui.min.js" />
     <Content Include="Content\DataTables\js\jquery.dataTables.js" />
     <Content Include="Content\DataTables\js\jquery.dataTables.min.js" />
+    <Content Include="Content\template.css" />
     <Content Include="Content\Donny.css" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
@@ -252,6 +253,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="index.html" />
     <Content Include="js\Budget.js" />
     <Content Include="js\Household.js" />
     <Content Include="js\DataTable.js" />
@@ -372,6 +374,8 @@
     <Content Include="Views\Budgets\Edit.cshtml" />
     <Content Include="Views\Budgets\Index.cshtml" />
     <Content Include="Views\Shared\_BudgetItemList.cshtml" />
+    <Content Include="Views\Shared\_NewLayout.cshtml" />
+    <Content Include="Views\Shared\_HouseholdMenuItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

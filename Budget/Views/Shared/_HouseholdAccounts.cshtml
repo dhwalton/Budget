@@ -1,7 +1,8 @@
 ﻿@model Budgeter.Models.HouseholdEditViewModel
 
 <section id="household-accounts">
-        <h4>Accounts:</h4>
+        <h4>Accounts</h4>
+        <hr />
         <div>
             @Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Household.Id }, null) 
             @if (Model.InactiveAccounts.Count() > 0)

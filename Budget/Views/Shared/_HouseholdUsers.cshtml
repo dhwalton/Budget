@@ -4,9 +4,10 @@
 
     @*@if (Model.AssignedUser == null)
     {*@
-        <h4>Members of the Household:</h4>
+        <h4>Members of the Household</h4>
+        <hr />
         <table class="user-list">
-            <tr><th>Role</th><th>Name</th><th>Display Name</th><th>Email</th><th>Action</th></tr>
+            <tr><th>Role</th><th>Name</th>@*<th>Display Name</th>*@@*<th>Email</th>*@<th>Action</th></tr>
             @foreach (var user in Model.Users)
             { 
                 <tr>
@@ -21,8 +22,8 @@
                         }
                     </td>
                     <td>@user.FirstName @user.LastName</td>
-                    <td>@user.DisplayName</td>
-                    <td>@user.Email</td>
+                    @*<td>@user.DisplayName</td>*@
+                    @*<td>@user.Email</td>*@
                     <td>
                         @* 
                             Owners can remove other users

@@ -4,11 +4,11 @@ $(document).ready(function () {
         $('#edit-budget-modal').modal();
     });
     $('.radio-income').click(function () {
-        $('#add-budget-expense').fadeOut(100);
-        $('#add-budget-income').fadeIn(200);
+        $('#add-budget-expense').hide();
+        $('#add-budget-income').show();
     });
     $('.radio-expense').click(function () {
-        $('#add-budget-income').fadeOut(100);
-        $('#add-budget-expense').fadeIn(200);
+        $('#add-budget-income').hide();
+        $('#add-budget-expense').show();
     });
 });
