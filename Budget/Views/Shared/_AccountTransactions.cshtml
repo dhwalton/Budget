@@ -3,7 +3,7 @@
 <section id="account-transactions">
         <table class="user-list data-table">
             <thead>
-                <tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th>Action</th></tr>
+                <tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th><i class="fa fa-check" aria-hidden="true"></i></th><th>Action</th></tr>
             </thead>
             <tbody>
             @foreach (var transaction in Model)
@@ -18,12 +18,35 @@
                     <td>@transaction.Description</td>
                     <td>@transaction.Category.Name</td>
                     <td>@transaction.Amount.ToString("$0.00")</td>
-                    <td class="table-action">
+                    <td>@if (transaction.Reconciled){ <i class="fa fa-check" aria-hidden="true"></i> }</td>
+                    
+                    <td class="table-action" id="@transaction.Id">
 
-                        <button class="btn-edit-transaction" id="@transaction.Id"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                        <button class="btn-edit-transaction" title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i></button>
 
-                        @*<span class="edit-action">@Html.ActionLink("<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>", "Edit", "Transactions", new { id = transaction.Id }, null)</span>*@
                         @if (transaction.Void)
+                        {
+                            <button class="btn-unvoid-transaction" title="Un-Void"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+                        }
+                        else
+                        {
+                            <button class="btn-void-transaction" title="Void"><i class="fa fa-minus-circle" aria-hidden="true"></i></button>
+                        }
+                        
+                        @if (transaction.Reconciled)
+                        {
+                            <button class="btn-unreconcile-transaction" title="Un-Reconcile"><i class="fa fa-square-o" aria-hidden="true"></i></button>
+                        }
+                        else
+                        {
+                            <button class="btn-reconcile-transaction" title="Reconcile"><i class="fa fa-check-square-o" aria-hidden="true"></i></button>
+                        }
+                        
+                        <button class="btn-delete-transaction" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        
+                        
+                        
+                        @*@if (transaction.Void)
                         {
                             <span class="unvoid-action">@Html.ActionLink("Restore", "VoidTransaction", "Transactions", new { id = transaction.Id }, null)</span>
                         }
@@ -32,10 +55,10 @@
                             <span class="void-action">@Html.ActionLink("VOID", "VoidTransaction", "Transactions", new { id = transaction.Id }, null)</span>
                         }
 
-                        <span class="remove-user">@Html.ActionLink("X", "ToggleTransaction", "Transactions", new { id = transaction.Id }, null)</span>
+                        <span class="remove-user">@Html.ActionLink("X", "ToggleTransaction", "Transactions", new { id = transaction.Id }, null)</span>*@
                     </td>
                 </tr>
-                }
+            }
             </tbody>
 
         </table>

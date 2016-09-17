@@ -448,6 +448,7 @@
     <Content Include="Views\Shared\_BudgetItemList.cshtml" />
     <Content Include="Views\Shared\_NewLayout.cshtml" />
     <Content Include="Views\Shared\_HouseholdMenuItem.cshtml" />
+    <Content Include="Views\Transactions\EditModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

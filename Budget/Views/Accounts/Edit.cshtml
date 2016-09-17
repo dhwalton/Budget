@@ -2,31 +2,60 @@
 
 @{
     ViewBag.Title = "Edit";
+    var runningBalance = Model.Account.BalanceAmt(false);
+    var reconciledBalance = Model.Account.BalanceAmt(true);
 }
 
 <div class="row">
     <div class="col-md-4">
-        <div class="row">
+        <div class="row no-margin">
             <div class="col-md-12">
+                @* running balance *@
                 <div class="light content-col auto-height">
                     <h4>Balance</h4>
                     <hr />
-                    @if (Model.Account.BalanceAmt() < 0)
+                    @if (runningBalance < 0)
                     {
                         <span class="balance negative-balance">
-                            @Model.Account.BalanceAmt().ToString("$0.00")
+                            @runningBalance.ToString("$0.00")
                         </span>
                         <span class="overdraft-alert">Overdraft!!!</span>
                     }
                     else
                     {
                         <span class="balance">
-                            @Model.Account.BalanceAmt().ToString("$0.00")
+                            @runningBalance.ToString("$0.00")
                         </span>
                     }
                     
                 </div>
             </div>
+        </div>
+        <div class="row no-margin">
+            <div class="col-md-12">
+                @* reconciled balance *@
+                <div class="light content-col auto-height">
+                    <h4>Reconciled Balance</h4>
+                    <hr />
+                    @if (reconciledBalance < 0)
+                    {
+                        <span class="balance negative-balance">
+                            @reconciledBalance.ToString("$0.00")
+                        </span>
+                        <span class="overdraft-alert">Overdraft!!!</span>
+                    }
+                    else
+                    {
+                        <span class="balance">
+                            @reconciledBalance.ToString("$0.00")
+                        </span>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+        <div class="row no-margin">
             <div class="col-md-12">
                 @* household edit form *@
                 <div class="light content-col">
@@ -93,12 +122,12 @@
                     }
                 </div>
             </div>
-            <div class="row no-margin">
-                <div class="col-md-12">
-                    @* return to household link *@
-                    <div class="light content-col auto-height">
-                        @Html.ActionLink("Back to " + Model.Account.Household.Name, "Edit", "Households", new { id = Model.Account.HouseholdId }, null)
-                    </div>
+        </div>
+        <div class="row no-margin">
+            <div class="col-md-12">
+                @* return to household link *@
+                <div class="light content-col auto-height">
+                    @Html.ActionLink("Back to " + Model.Account.Household.Name, "Edit", "Households", new { id = Model.Account.HouseholdId }, null)
                 </div>
             </div>
         </div>
@@ -155,7 +184,7 @@
     <h3>Deleted Transactions:</h3>
     <table class="user-list data-table">
         <thead>
-            <tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th>Action</th></tr>
+            <tr><th>Date</th><th>Description</th><th>Category</th><th>Amount</th><th><i class="fa fa-check" aria-hidden="true"></i></th><th>Action</th></tr>
         </thead>
         <tbody>
             @foreach(var transaction in Model.InactiveTransactions)
@@ -165,6 +194,7 @@
                 <td>@transaction.Description</td>
                 <td>@transaction.Category.Name</td>
                 <td>@transaction.Amount</td>
+                <td>@if (transaction.Reconciled) { <i class="fa fa-check" aria-hidden="true"></i> }</td>
                 <td><span class="add-user">@Html.ActionLink("Undelete", "ToggleTransaction", "Transactions", new { id = transaction.Id }, null)</span></td>
             </tr>
             }

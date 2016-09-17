@@ -47,7 +47,23 @@ namespace Budget.Controllers
         //    return View();
         //}
 
-       [HttpGet]
+        [HttpGet]
+        public ActionResult ToggleReconciled(int id)
+        {
+            var transaction = db.Transaction.Find(id);
+            var userId = User.Identity.GetUserId();
+            // user must be the owner of account or owner of household
+            if (userId == transaction.Account.OwnerId || userId == transaction.Account.Household.OwnerId)
+            {
+                // toggle active
+                transaction.Reconciled = !transaction.Reconciled;
+                db.Entry(transaction).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Accounts", new { id = transaction.AccountId });
+        }
+
+        [HttpGet]
        public ActionResult ToggleTransaction(int id)
         {
             var transaction = db.Transaction.Find(id);
@@ -132,6 +148,27 @@ namespace Budget.Controllers
             return RedirectToAction("Edit", "Accounts", new { id = transaction.AccountId });
         }
 
+
+        [HttpGet]
+        public ActionResult EditModal(int id)
+        {
+            // get transaction from db
+            var transaction = db.Transaction.Find(id);
+
+            // Category SelectList populates based on whether transaction is deposit or withdrawals
+            if (transaction.Amount > 0)
+            {
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.IsDeposit), "Id", "Name");
+            }
+            else
+            {
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.IsDeposit == false), "Id", "Name");
+            }
+
+            // return the view
+            return View(transaction);
+
+        }
 
         // GET: Transactions/Edit/5
         public ActionResult Edit(int? id)

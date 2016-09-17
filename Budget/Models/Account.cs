@@ -17,12 +17,21 @@ namespace Budgeter.Models
             Transactions = new HashSet<Transaction>();
         }
 
-        public float BalanceAmt()
+        public float BalanceAmt(bool isReconciled)
         {
-            return Transactions
-                    .Where(t => t.Active)
-                    .Where(t => t.Void == false)
-                    .Sum(t => t.Amount);
+            // get all the transactions in the account
+            var result = Transactions
+                        .Where(t => t.Active)
+                        .Where(t => t.Void == false);
+                        
+            // if necessary, filter out unreconciled transactions
+            if (isReconciled)
+            {
+                result = result.Where(t => t.Reconciled);
+            }
+
+            // return the sum of the amounts
+            return result.Sum(t => t.Amount);
         }
 
         public float MonthlyExpenses(DateTimeOffset monthDate)

@@ -154,3 +154,22 @@
 a {
     color: #225378;
 }
+
+.table-action button {
+    background-color: #fefefe;
+}
+
+.btn-edit-transaction {
+    color: #666;
+}
+
+.btn-void-transaction,
+.btn-delete-transaction {
+    color: firebrick;
+}
+
+.btn-unvoid-transaction,
+.btn-undelete-transaction,
+.btn-reconcile-transaction {
+    color: green;
+}
