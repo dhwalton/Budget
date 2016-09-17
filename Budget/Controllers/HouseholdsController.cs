@@ -10,6 +10,7 @@ using Budgeter.Models;
 using Microsoft.AspNet.Identity;
 using System.Net.Mail;
 using System.Configuration;
+using Newtonsoft.Json;
 
 namespace Budget.Controllers
 {
@@ -66,6 +67,54 @@ namespace Budget.Controllers
             }
             return RedirectToAction("Edit", new { id = householdId });
         }
+
+        [HttpGet]
+        public ActionResult GetChart(int householdId)
+        {
+            var tod = DateTimeOffset.Now;
+            float totalExpense = 0;
+            float totalBudget = 0;
+            var household = db.Households.Find(householdId);
+
+
+
+
+            //var bar = (from c in household.Categories
+            //           where c.IsDeposit == false
+            //           let aSum = (from t in c.Transactions
+            //                       where t.Date.Year == tod.Year && t.Date.Month == tod.Month
+            //                       select t.Amount).DefaultIfEmpty().Sum()
+            //           let bSum = (from b in c.BudgetItems
+            //                       select b.Amount).DefaultIfEmpty().Sum()
+            //           let _ = totalExpense += aSum
+            //           let __ = totalBudget += bSum
+            //           select new
+            //           {
+            //               Name = c.Name,
+            //               Actual = aSum,
+            //               Budgeted = bSum
+            //           }).ToArray();
+
+            var bar1 = new { name = "Test", Actual = 50.0, Budgeted = 55.0 };
+            var bar2 = new { name = "Test", Actual = 44.0, Budgeted = 58.0 };
+            var bar3 = new { name = "Test", Actual = 50.0, Budgeted = 59.0 };
+            var bar4 = new { name = "Test", Actual = 44.0, Budgeted = 50.0 };
+
+            Object[] bar = new Object[] { bar1, bar2, bar3, bar4 };
+
+
+            var result = new
+            {
+                bar = bar,
+                totalBudget = totalBudget,
+                totalExpense = totalExpense
+            };
+            var content = Content(JsonConvert.SerializeObject(result), "application/json");
+            
+            return content;
+
+        }
+
 
         public ActionResult DeclineInvitation(int householdId)
         {
@@ -285,12 +334,35 @@ namespace Budget.Controllers
             }
 
             var model = new HouseholdEditViewModel();
+
+            // build the view model
             model.Household = db.Households.Find(id);
             model.ActiveAccounts = model.Household.Accounts.Where(a => a.Active).ToList();
             model.InactiveAccounts = model.Household.Accounts.Where(a => a.Active == false).ToList();
             model.ActiveBudgets = model.Household.Budgets.Where(a => a.Active).ToList();
 
+            // calculate expenses for the household
+            model.HouseholdExpenses = db.Transaction
+                .Where(t => t.Account.HouseholdId == id)
+                .Where(t => t.Account.Active)
+                .Where(t => t.Void == false)
+                .Where(t => t.Active)
+                .Where(t => t.Amount < 0)
+                .Sum(t => t.Amount);
+
+            // calculate income for the household
+            model.HouseholdIncome = db.Transaction
+                .Where(t => t.Account.HouseholdId == id)
+                .Where(t => t.Account.Active)
+                .Where(t => t.Void == false)
+                .Where(t => t.Active)
+                .Where(t => t.Amount > 0)
+                .Sum(t => t.Amount);
+
+            // current user id (necessary for adding/removing view functionality)
             ViewBag.CurrentUserId = User.Identity.GetUserId();
+
+            // select list for changing the household owner
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "DisplayName", household.OwnerId);
             return View(model);
         }

@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Budgeter.Models
 {
@@ -18,15 +19,32 @@ namespace Budgeter.Models
 
         public float BalanceAmt()
         {
-            float result = 0;
-            foreach (var transasction in Transactions)
-            {
-                if (transasction.Active && !transasction.Void)
-                {
-                    result += transasction.Amount;
-                }
-            }
-            return result;
+            return Transactions
+                    .Where(t => t.Active)
+                    .Where(t => t.Void == false)
+                    .Sum(t => t.Amount);
+        }
+
+        public float MonthlyExpenses(DateTimeOffset monthDate)
+        {
+            return Transactions
+                    .Where(t => t.Active)
+                    .Where(t => t.Void == false)
+                    .Where(t => t.Date.Month == monthDate.Month)
+                    .Where(t => t.Date.Year == monthDate.Year)
+                    .Where(t => t.Amount < 0)
+                    .Sum(t => t.Amount);
+        }
+
+        public float MonthlyIncome(DateTimeOffset monthDate)
+        {
+            return Transactions
+                    .Where(t => t.Active)
+                    .Where(t => t.Void == false)
+                    .Where(t => t.Date.Month == monthDate.Month)
+                    .Where(t => t.Date.Year == monthDate.Year)
+                    .Where(t => t.Amount > 0)
+                    .Sum(t => t.Amount);
         }
 
         public int Id { get; set; }

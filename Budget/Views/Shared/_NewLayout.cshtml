@@ -10,6 +10,7 @@
     @Styles.Render("~/Content/jquery.datetimepicker.css")
     @Styles.Render("~/Content/font-awesome/css/font-awesome.min.css")
     @Styles.Render("~/Content/DataTables/css/jquery.dataTables.min.css")
+    @Styles.Render("~/Content/morris/morris.css")
     @Scripts.Render("~/bundles/modernizr")
     
 </head>
@@ -73,6 +74,8 @@
         @Scripts.Render("~/Content/DataTables/js/jquery.dataTables.min.js")
         @Scripts.Render("~/js/DataTable.js")
         @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js")
+        @Scripts.Render("~/Content/morris/morris.js")
         @RenderSection("scripts", required: false)
 
         @section scripts {

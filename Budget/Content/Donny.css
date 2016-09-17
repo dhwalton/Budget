@@ -71,16 +71,17 @@
 #closed-accounts-modal,
 #deleted-transaction-modal,
 #create-budget-modal,
-#edit-budget-modal {
+#edit-budget-modal,
+#chart-modal {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    background-color: lightgreen;
+    /*background-color: lightgreen;
     padding: 2em;
     border-radius: 0.25em;
-    border: 1px dashed green;
+    border: 1px dashed green;*/
     display: none;
     z-index:3800;
 }
@@ -122,10 +123,34 @@
 }
 
 .radio-container {
-    border: 1px solid #eee;
+    border: 1px solid #EB7F00;
+    border-radius: 0.25em;
     padding: 1em;
+    margin-bottom: 1em;
 }
 
 .radio-container input {
     margin-left: 2em;
+}
+
+.auto-height {
+    min-height: auto !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.balance {
+    font-weight:  700;
+    font-size: 3em;
+    color: green;
+}
+
+.negative-balance {
+    color: firebrick;
+}
+
+a {
+    color: #225378;
 }

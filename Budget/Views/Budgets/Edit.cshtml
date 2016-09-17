@@ -3,123 +3,138 @@
 @{
     ViewBag.Title = "Edit";
 }
-<div class="edit-header">
-    <span>@Model.Budget.Name</span>
-    <button id="btn-edit-budget"><i class="fa fa-pencil"></i></button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="edit-header light content-col auto-height">
+                <span>@Model.Budget.Name</span>
+                <button id="btn-edit-budget"><i class="fa fa-pencil"></i></button>
+            </div>
+        </div>
+    </div>
 </div>
 
- <hr />
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <div>
-                    <h4>Income</h4>
-                    @Html.Partial("_BudgetItemList", Model.IncomeBudgetItems)
-                </div>
-                <hr />
-                <div>
-                    <h4>Expenses</h4>
-                    @Html.Partial("_BudgetItemList", Model.ExpenseBudgetItems)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="light content-col auto-height">
+                            <h4>Income</h4>
+                            @Html.Partial("_BudgetItemList", Model.IncomeBudgetItems)
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="light content-col auto-height">
+                            <h4>Expenses</h4>
+                            @Html.Partial("_BudgetItemList", Model.ExpenseBudgetItems)
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div class="col-md-6">
-                <div class="radio-container">
-                    <input type="radio" name="item-type" class="radio-income" /> Income
-                    <input type="radio" name="item-type" class="radio-expense" checked /> Expense
-                </div>
-                <div id="add-budget-income">
-                    <h4>Add Budget Item - Income</h4>
-                    @using (Html.BeginForm("AddBudgetItem", "Budgets", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("BudgetId", Model.Budget.Id)
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.Label("Item Name")
+                <div class="light content-col">
+                    <div class="radio-container">
+                        <input type="radio" name="item-type" class="radio-income" /> Income
+                        <input type="radio" name="item-type" class="radio-expense" checked /> Expense
+                    </div>
+                    <div id="add-budget-income">
+                        <h4>Add Budget Item - Income</h4>
+                        <hr />
+                        @using (Html.BeginForm("AddBudgetItem", "Budgets", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("BudgetId", Model.Budget.Id)
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("Item Name")
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.TextBox("Name")
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    @Html.TextBox("Name")
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("Amount")
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.TextBox("Amount")
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.Label("Amount")
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("Frequency")
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.TextBox("Frequency", "", null, new { @type = "number", @min = "1", @max = "52" })
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    @Html.TextBox("Amount")
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("Category")
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("CategoryId", ViewBag.IncomeCategories as SelectList)
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.Label("Frequency")
-                                </div>
-                                <div class="col-md-6">
-                                    @Html.TextBox("Frequency", "", null, new { @type="number", @min = "1", @max="52" })
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.Label("Category")
-                                </div>
-                                <div class="col-md-6">
-                                    @Html.DropDownList("CategoryId", ViewBag.IncomeCategories as SelectList)
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="submit" />
-                                </div>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div id="add-budget-expense">
-                    <h4>Add Budget Item - Expense</h4>
-                    @using (Html.BeginForm("AddBudgetItem", "Budgets", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("BudgetId", Model.Budget.Id)
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.Label("Item Name")
-                                </div>
-                                <div class="col-md-6">
-                                    @Html.TextBox("Name")
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="submit" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.Label("Amount")
+                        }
+                    </div>
+                    <div id="add-budget-expense">
+                        <h4>Add Budget Item - Expense</h4>
+                        <hr />
+                        @using (Html.BeginForm("AddBudgetItem", "Budgets", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("BudgetId", Model.Budget.Id)
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("Item Name")
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.TextBox("Name")
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    @Html.TextBox("Amount")
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("Amount")
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.TextBox("Amount")
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("Frequency")
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.TextBox("Frequency", "", null, new { @type = "number", @min = "1", @max = "52" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("Category")
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.DropDownList("CategoryId", ViewBag.ExpenseCategories as SelectList)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="submit" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.Label("Frequency")
-                                </div>
-                                <div class="col-md-6">
-                                    @Html.TextBox("Frequency", "", null, new { @type = "number", @min = "1", @max = "52" })
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @Html.Label("Category")
-                                </div>
-                                <div class="col-md-6">
-                                    @Html.DropDownList("CategoryId", ViewBag.ExpenseCategories as SelectList)
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <input type="submit" />
-                                </div>
-                            </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>

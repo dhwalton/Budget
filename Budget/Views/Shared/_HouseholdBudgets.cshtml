@@ -33,12 +33,12 @@
             </tbody>
         </table>
         }
-    <p>
+    <div style="margin-top: 1em;">
         <button id="btn-create-budget">Create a Budget...</button>
-    </p>
+    </div>
 </section>
 
-<div id="create-budget-modal">
+<div id="create-budget-modal" class="content-col light">
     @Html.Action("Create","Budgets", new { householdId = Model.Household.Id })
 </div>
 

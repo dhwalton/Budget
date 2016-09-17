@@ -6,6 +6,45 @@
     <div class="container">
     <div class="row">
         <div class="col-md-4">
+            <div class="light content-col auto-height">
+                <h4>Income</h4>
+                <hr />
+                <span class="balance">
+                    @Model.HouseholdIncome.ToString("$0.00")
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="light content-col auto-height">
+                <h4>Expenses</h4>
+                <hr />
+                <span class="balance negative-balance">
+                    @Model.HouseholdExpenses.ToString("$0.00")
+                </span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="light content-col auto-height">
+                <h4>On Hand</h4>
+                <hr />
+                @{ var onHand = Model.HouseholdExpenses + Model.HouseholdIncome; }
+                @if ( onHand <= 0)
+                {
+                    <span class="balance negative-balance">
+                        @onHand.ToString("$0.00")
+                    </span>
+                }
+                else
+                {
+                    <span class="balance">
+                        @onHand.ToString("$0.00")
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
             <div class="light content-col">
             @using (Html.BeginForm("Create", "Transactions", FormMethod.Post))
             {
@@ -62,6 +101,9 @@
             <div class="content-col light">
                 <h4>Chart</h4>
                 <hr />
+                <div id="chart1">
+                    @* Chart goes here *@
+                </div>
             </div>
         </div>
         <div class="col-md-8">
@@ -71,16 +113,16 @@
         </div>
     </div>
 </div>
-
-
-    <hr />
     
 
     @*<div>
         @Html.ActionLink("Back to List", "Index")
     </div>*@
+<div id="chart-modal" class="content-col light">
+    
+</div>
 
-<div id="closed-accounts-modal">
+<div id="closed-accounts-modal" class="content-col light">
     <table class="user-list data-table">
         <thead>
             <tr><th>Name</th><th>Owner</th><th>Action</th></tr>
@@ -101,3 +143,20 @@
 </div>
 @Scripts.Render("~/js/Household.js")
 @Scripts.Render("~/Scripts/Donny-Invite.js")
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $.get('@Url.Action("GetChart","Households", new { householdId = Model.Household.Id })').then(function (response) {
+                new Morris.Bar({
+                    element: 'chart1',
+                    data: response.bar,
+                    xkey: 'Name',
+                    ykeys: ['Actual', 'Budgeted'],
+                    labels: ['Expenses to Date', 'Amount Budgeted'],
+                    resize: true
+                });
+            });
+        })
+    </script>    
+}

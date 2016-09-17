@@ -4,132 +4,154 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
 <div class="row">
-    <div class="col-md-6">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                <h4>Account</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.Account.Id)
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Account.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Account.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Account.Name, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Account.HouseholdId, "HouseholdId", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("HouseholdId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Account.HouseholdId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Account.OwnerId, "OwnerId", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("OwnerId", null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Account.OwnerId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Account.Balance, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-
-                        <label class="control-label col-md-2">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="light content-col auto-height">
+                    <h4>Balance</h4>
+                    <hr />
+                    @if (Model.Account.BalanceAmt() < 0)
+                    {
+                        <span class="balance negative-balance">
                             @Model.Account.BalanceAmt().ToString("$0.00")
-                            @if (Model.Account.BalanceAmt() < 0)
-                            {
-                                <span class="overdraft-alert">OVERDRAFT!!!</span>
-                            }
-                        </label>
-                        @*@Html.EditorFor(model => model.Account.Balance, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Account.Balance, "", new { @class = "text-danger" })*@
-                    </div>
+                        </span>
+                        <span class="overdraft-alert">Overdraft!!!</span>
+                    }
+                    else
+                    {
+                        <span class="balance">
+                            @Model.Account.BalanceAmt().ToString("$0.00")
+                        </span>
+                    }
+                    
                 </div>
+            </div>
+            <div class="col-md-12">
+                @* household edit form *@
+                <div class="light content-col">
+                    @using (Html.BeginForm())
+            {
+                        @Html.AntiForgeryToken()
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Account.Active, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <div class="checkbox">
-                            @Html.EditorFor(model => model.Account.Active)
-                            @Html.ValidationMessageFor(model => model.Account.Active, "", new { @class = "text-danger" })
+                        <div class="form-horizontal">
+                            <h4>Account</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Account.Id)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Account.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Account.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Account.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Account.HouseholdId, "HouseholdId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("HouseholdId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Account.HouseholdId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Account.OwnerId, "OwnerId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("OwnerId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Account.OwnerId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Account.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    <div class="checkbox">
+                                        @Html.EditorFor(model => model.Account.Active)
+                                        @Html.ValidationMessageFor(model => model.Account.Active, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Account.ReconciledBalance, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Account.ReconciledBalance, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Account.ReconciledBalance, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Save" class="btn btn-default" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Account.ReconciledBalance, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Account.ReconciledBalance, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Account.ReconciledBalance, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+            <div class="row no-margin">
+                <div class="col-md-12">
+                    @* return to household link *@
+                    <div class="light content-col auto-height">
+                        @Html.ActionLink("Back to " + Model.Account.Household.Name, "Edit", "Households", new { id = Model.Account.HouseholdId }, null)
                     </div>
                 </div>
             </div>
-        }
+        </div>
     </div>
-    <div id="col-md-6">
-        <h4>Budget Items</h4>
+
+    <div class="col-md-8">
+        <div class="light content-col auto-height">
+            <h4>Transactions</h4>
+            <hr />
+            <div>
+                @*@Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Id }, null)*@
+                <p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <strong>Create a Transaction: </strong>
+                            <button id="btn-withdrawal" class="btn-transaction">Withdrawal</button>
+                            <button id="btn-deposit" class="btn-transaction">Deposit</button>
+                        </div>
+                        
+                        @if (Model.InactiveTransactions.Count() > 0)
+                        {
+                            <div class="col-sm-6" style="text-align: right">
+                                <button id="btn-deleted-transactions" class="btn-transaction">Deleted Transactions</button>
+                            </div>
+                        }
+                    </div>
+                </p>
+                @Html.Partial("_AccountTransactions", Model.ActiveTransactions)
+            </div>
+        </div>
     </div>
 </div>
-<hr />
-
-<h4>Transactions:</h4>
-<div>
-    @*@Html.ActionLink("Create a New Account","Create","Accounts",new { householdId = Model.Id }, null)*@
-    <button id="btn-withdrawal" class="btn-transaction">Withdrawal</button>
-    <button id="btn-deposit" class="btn-transaction">Deposit</button>
-    @if (Model.InactiveTransactions.Count() > 0)
-    {
-        <button id="btn-deleted-transactions" class="btn-transaction">Deleted Transactions</button>
-    }
-</div>
-
-<hr />
-
-@Html.Partial("_AccountTransactions",Model.ActiveTransactions)
-
-<div>
-    @Html.ActionLink("Back to Household", "Edit", "Households", new { id = Model.Account.HouseholdId }, null)
-</div>
-<hr />
 
 @* Modal to add a withdrawal transaction *@
-<div id="add-withdrawal-modal">
+<div id="add-withdrawal-modal" class="content-col light">
     <h3>Make a Withdrawal:</h3>
     @Html.Action("Create", "Transactions", new { accountId = Model.Account.Id, isDeposit = "false" })
 </div>
 
 @* Modal to add a deposit transaction *@
-<div id="add-deposit-modal">
+<div id="add-deposit-modal" class="content-col light">
     <h3>Make a Deposit:</h3>
     @Html.Action("Create", "Transactions", new { accountId = Model.Account.Id, isDeposit = "true" })
 </div>
 
 @* Modal to edit a transaction *@
-<div id="edit-deposit-modal">
+<div id="edit-deposit-modal" class="content-col light">
     <h3>Make a Deposit:</h3>
     
 </div>
 
 @* Modal to view deleted transactions *@
-<div id="deleted-transaction-modal">
+<div id="deleted-transaction-modal" class="content-col light">
     <h3>Deleted Transactions:</h3>
     <table class="user-list data-table">
         <thead>

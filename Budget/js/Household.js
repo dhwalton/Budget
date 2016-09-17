@@ -7,4 +7,9 @@ $(document).ready(function () {
     $('#btn-create-budget').click(function () {
         $('#create-budget-modal').modal();
     });
+
+    $('#chart1').click(function () {
+        //$('#chart-modal').html($('#chart1').html());
+        //$('#chart-modal').modal();
+    });
 });

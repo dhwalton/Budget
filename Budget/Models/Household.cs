@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Budgeter.Models
 {
@@ -17,6 +18,17 @@ namespace Budgeter.Models
             Budgets = new HashSet<Budgets>();
             Users = new HashSet<ApplicationUser>();
             Invites = new HashSet<Invite>();
+            Categories = new HashSet<Category>();
+        }
+
+        public float MonthlyExpenses(DateTimeOffset monthDate)
+        {
+            return Accounts.Where(a => a.Active).Sum(a => a.MonthlyExpenses(monthDate));
+        }
+
+        public float MonthlyIncome(DateTimeOffset monthDate)
+        {
+            return Accounts.Where(a => a.Active).Sum(a => a.MonthlyIncome(monthDate));
         }
 
         public int Id { get; set; }
@@ -31,5 +43,6 @@ namespace Budgeter.Models
         public virtual ICollection<Budgets> Budgets { get; set; }
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Invite> Invites { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }
