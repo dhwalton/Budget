@@ -20,7 +20,7 @@
                 <tr>
                     <td>@Html.ActionLink(@account.Name,"Edit","Accounts", new { id = account.Id }, null)</td>
                     <td>@account.Owner.FirstName @account.Owner.LastName</td>
-                    <td>@account.BalanceAmt().ToString("$0.00")</td>
+                    <td>@account.BalanceAmt(false).ToString("$0.00")</td>
                     <td><span class="remove-action">@Html.ActionLink("Close", "ToggleAccount", "Accounts", new { id = account.Id }, null)</span></td>
                 </tr>
             }

@@ -90,8 +90,9 @@ namespace Budget.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IncomeCategories = new SelectList(db.Categories.Where(c => c.IsDeposit), "Id", "Name");
-            ViewBag.ExpenseCategories = new SelectList(db.Categories.Where(c => c.IsDeposit == false), "Id", "Name");
+
+            ViewBag.IncomeCategories = new SelectList(model.Budget.Household.Categories.Where(c => c.IsDeposit), "Id", "Name");
+            ViewBag.ExpenseCategories = new SelectList(model.Budget.Household.Categories.Where(c => c.IsDeposit == false), "Id", "Name");
             return View(model);
         }
 

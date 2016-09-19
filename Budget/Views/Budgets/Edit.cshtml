@@ -143,7 +143,45 @@
         @Html.ActionLink("Back to Household", "Edit", "Households", new { id = Model.Budget.HouseholdId }, null)
     </div>
 
-<div class="form-horizontal" id="edit-budget-modal">
+<div class="content-col light auto-height" id="category-edit-modal">
+    <h3>Categories</h3>
+    <hr />
+    <div id="this-category"></div>
+    <table class="data-table">
+        <thead>
+            <tr><th>Category Name</th><th>Type</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.Budget.Household.Categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>
+                        @if (category.IsDeposit)
+                        {
+                            <span>Deposit</span>
+                        }
+                        else
+                        {
+                            <span>Withdrawal</span>
+                        }
+                    </td>
+                    <td>
+                        <input type="hidden" value="@category.Id" />
+                        <button class="btn-category-edit"><i class="fa fa-pencil"></i></button>
+                        <button class="btn-category-delete"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>
+
+<div class="form-horizontal light content-col auto-height" id="edit-budget-modal">
+    <h3>Budget Name</h3>
+    <hr />
+    <div style="margin-top: 1em">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -153,7 +191,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Budget.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.Editor("Name", Model.Budget.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Editor("Name", Model.Budget.Name, new { htmlAttributes = new { @class = "form-control", @Value = Model.Budget.Name } })
                 @Html.ValidationMessageFor(model => model.Budget.Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -164,6 +202,7 @@
             </div>
         </div>
     }
+    </div>
 </div>
 
 

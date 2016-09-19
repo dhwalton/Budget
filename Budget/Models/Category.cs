@@ -11,15 +11,10 @@ namespace Budgeter.Models
 {
     public class Category
     {
-        public Category()
-        {
-            Transactions = new HashSet<Transaction>();
-            BudgetItems = new HashSet<BudgetItem>();
-        }
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsDeposit { get; set; }
-        public virtual ICollection<Transaction> Transactions { get; set; }
-        public virtual ICollection<BudgetItem> BudgetItems { get; set; }
+        public int? HouseholdId { get; set; }
+        public Household Household { get; set; }
     }
 }

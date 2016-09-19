@@ -57,6 +57,12 @@ public class HouseholdHelper
         return invite.Id;
     }
 
+    // does the userId match the household ownerId?
+    public bool UserOwnsHousehold(string userId, int householdId)
+    {
+        if (userId == db.Households.Find(householdId).OwnerId) return true;
+        return false;
+    }
 
     public bool DeactivateHousehold(int householdId)
     {
@@ -92,6 +98,66 @@ public class HouseholdHelper
         }
         // invitation was not found
         return false;
+    }
+
+
+    // add some default categories to a household
+    public ICollection<Category> DefaultCategories()
+    {
+        HashSet<Category> Categories = new HashSet<Category>();
+        Categories.Add(new Category()
+        {
+            Name = "Misc Deposit",
+            IsDeposit = true
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Paycheck",
+            IsDeposit = true
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Gift",
+            IsDeposit = true
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Misc Withdrawal",
+            IsDeposit = false
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Groceries",
+            IsDeposit = false
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Entertainment",
+            IsDeposit = false
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Rent",
+            IsDeposit = false
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Mortgage",
+            IsDeposit = false
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Utilities",
+            IsDeposit = false
+        });
+        Categories.Add(new Category()
+        {
+            Name = "Savings",
+            IsDeposit = false
+        });
+        
+
+        return Categories;
     }
 
 }

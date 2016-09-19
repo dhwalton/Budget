@@ -158,16 +158,44 @@ namespace Budget.Controllers
             // Category SelectList populates based on whether transaction is deposit or withdrawals
             if (transaction.Amount > 0)
             {
-                ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.IsDeposit), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.IsDeposit), "Id", "Name", transaction.CategoryId);
             }
             else
             {
-                ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.IsDeposit == false), "Id", "Name");
+                ViewBag.CategoryId = new SelectList(db.Categories.Where(c => c.IsDeposit == false), "Id", "Name", transaction.CategoryId);
             }
+
+            // the transaction amount is always positive to the user
+            transaction.Amount = Math.Abs(transaction.Amount);
 
             // return the view
             return View(transaction);
 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditModal([Bind(Include ="Id,UserId,AccountId,Active,AccountId,CategoryId,Description,Date,Amount")] Transaction transaction)
+        {
+            if (ModelState.IsValid)
+            {
+                // find the category of this transaction
+                var category = db.Categories.Find(transaction.CategoryId);
+
+                // start with a positive transaction amount
+                transaction.Amount = Math.Abs(transaction.Amount);
+
+                // if the category is not a deposit, make the amount negative
+                if (!category.IsDeposit)
+                {
+                    transaction.Amount = transaction.Amount * -1;
+                }
+
+                db.Entry(transaction).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Edit", "Accounts", new { id = transaction.AccountId });
         }
 
         // GET: Transactions/Edit/5

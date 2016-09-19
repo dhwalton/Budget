@@ -11,4 +11,8 @@ $(document).ready(function () {
         $('#add-budget-income').hide();
         $('#add-budget-expense').show();
     });
+    $('.btn-category-edit').click(function () {
+        var id = $(this).parent().find('input').val();
+
+    });
 });

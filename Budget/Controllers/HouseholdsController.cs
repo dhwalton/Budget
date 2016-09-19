@@ -291,6 +291,8 @@ namespace Budget.Controllers
             if (ModelState.IsValid)
             {
                 household.OwnerId = User.Identity.GetUserId();
+                var householdHelper = new HouseholdHelper();
+                household.Categories = householdHelper.DefaultCategories();
                 var user = db.Users.Find(household.OwnerId);
                 household.Users.Add(user);
                 db.Households.Add(household);
@@ -363,7 +365,7 @@ namespace Budget.Controllers
             ViewBag.CurrentUserId = User.Identity.GetUserId();
 
             // select list for changing the household owner
-            ViewBag.OwnerId = new SelectList(db.Users, "Id", "DisplayName", household.OwnerId);
+            ViewBag.OwnerId = new SelectList(model.Household.Users, "Id", "DisplayName", model.Household.OwnerId);
             return View(model);
         }
 
@@ -374,8 +376,10 @@ namespace Budget.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,OwnerId,Active,Demo")] Household household)
         {
+            var userId = User.Identity.GetUserId();
+
             // ensure that the user is the owner of the household
-            if (User.Identity.GetUserId() != household.OwnerId)
+            if (!householdHelper.UserOwnsHousehold(userId,household.Id))
             {
                 // kick them out (maybe redirect to an error view here?)
                 return RedirectToAction("Index");
@@ -383,12 +387,26 @@ namespace Budget.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(household).State = EntityState.Modified;
+                // retrieve the household from the database and only change the pertinent values
+                // (I know there's a better way to do this)
+                var oldHousehold = db.Households.Find(household.Id);
+                oldHousehold.Name = household.Name;
+                oldHousehold.OwnerId = household.OwnerId;
+                oldHousehold.Active = household.Active;
+                oldHousehold.Demo = household.Demo;
+
+                // add the default categories if no categories exist
+                if (oldHousehold.Categories.Count == 0)
+                {
+                   oldHousehold.Categories = householdHelper.DefaultCategories();
+                }
+                
+                db.Entry(oldHousehold).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
             }
             ViewBag.OwnerId = new SelectList(db.Users, "Id", "FirstName", household.OwnerId);
-            return View(household);
+            return RedirectToAction("Edit", new { id = household.Id });
         }
 
         // GET: Households/Delete/5
