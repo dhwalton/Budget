@@ -65,6 +65,7 @@
     background-color: rgba(0,0,0,0.15);
 }
 
+.modal-div,
 #add-withdrawal-modal, 
 #add-deposit-modal,
 #edit-deposit-modal,
@@ -72,7 +73,8 @@
 #deleted-transaction-modal,
 #create-budget-modal,
 #edit-budget-modal,
-#chart-modal {
+#chart-modal,
+#category-edit-modal {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -172,4 +174,17 @@ a {
 .btn-undelete-transaction,
 .btn-reconcile-transaction {
     color: green;
+}
+
+#this-category {
+    padding:1em;
+    background-color: rgba(255,255,255,0.8);
+    margin: 1em;
+    border-radius: 0.5em;
+    box-shadow: 1px 1px 5px #333;
+    display: none;
+}
+
+#this-category form table tr td, #add-category-modal table tr td {
+    padding: 0.5em 0.75em;
 }

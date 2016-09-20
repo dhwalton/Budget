@@ -108,52 +108,62 @@ public class HouseholdHelper
         Categories.Add(new Category()
         {
             Name = "Misc Deposit",
-            IsDeposit = true
+            IsDeposit = true,
+            Default = true
         });
         Categories.Add(new Category()
         {
             Name = "Paycheck",
-            IsDeposit = true
+            IsDeposit = true,
+            Default = false
         });
         Categories.Add(new Category()
         {
             Name = "Gift",
-            IsDeposit = true
+            IsDeposit = true,
+            Default = false
         });
         Categories.Add(new Category()
         {
             Name = "Misc Withdrawal",
-            IsDeposit = false
+            IsDeposit = false,
+            Default = true
         });
         Categories.Add(new Category()
         {
             Name = "Groceries",
-            IsDeposit = false
+            IsDeposit = false,
+            Default = false
         });
         Categories.Add(new Category()
         {
             Name = "Entertainment",
-            IsDeposit = false
+            IsDeposit = false,
+            Default = false
         });
         Categories.Add(new Category()
         {
             Name = "Rent",
-            IsDeposit = false
+            IsDeposit = false,
+            Default = false
         });
         Categories.Add(new Category()
         {
             Name = "Mortgage",
-            IsDeposit = false
+            IsDeposit = false,
+            Default = false
         });
         Categories.Add(new Category()
         {
             Name = "Utilities",
-            IsDeposit = false
+            IsDeposit = false,
+            Default = false
         });
         Categories.Add(new Category()
         {
             Name = "Savings",
-            IsDeposit = false
+            IsDeposit = false,
+            Default = false
         });
         
 

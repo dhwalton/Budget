@@ -13,7 +13,9 @@ namespace Budgeter.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Active { get; set; }
         public bool IsDeposit { get; set; }
+        public bool Default { get; set; }
         public int? HouseholdId { get; set; }
         public Household Household { get; set; }
     }

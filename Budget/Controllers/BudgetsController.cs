@@ -91,8 +91,8 @@ namespace Budget.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.IncomeCategories = new SelectList(model.Budget.Household.Categories.Where(c => c.IsDeposit), "Id", "Name");
-            ViewBag.ExpenseCategories = new SelectList(model.Budget.Household.Categories.Where(c => c.IsDeposit == false), "Id", "Name");
+            ViewBag.IncomeCategories = new SelectList(model.Budget.Household.Categories.Where(c => c.IsDeposit).Where(c => c.Active), "Id", "Name");
+            ViewBag.ExpenseCategories = new SelectList(model.Budget.Household.Categories.Where(c => c.IsDeposit == false).Where(c => c.Active), "Id", "Name");
             return View(model);
         }
 
@@ -138,6 +138,80 @@ namespace Budget.Controllers
             db.Budgets.Remove(budgets);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public bool EditCategory(int categoryId, string categoryName, string categoryType)
+        {
+            // instantiate category from id
+            var category = db.Categories.Find(categoryId);
+
+            // make sure the category exists
+            if (category != null)
+            {
+                category.Name = categoryName;
+
+                // default categories can't have their type changed
+                if (!category.Default)
+                {
+                    if (categoryType == "Withdrawal")
+                    {
+                        category.IsDeposit = false;
+                    }
+                    if (categoryType == "Deposit")
+                    {
+                        category.IsDeposit = true;
+                    }
+
+                    category.Active = true;
+                    
+                    // save changes
+                    db.Entry(category).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                // edit was successful
+                return true;
+            }
+
+            // edit was unsuccessful
+            return false;
+        }
+
+        public ActionResult AddCategory(int budgetId, string categoryName, string addCategoryType)
+        {
+            if (!String.IsNullOrWhiteSpace(categoryName) && !String.IsNullOrWhiteSpace(addCategoryType))
+            {
+                var budget = db.Budgets.Find(budgetId);
+
+                bool isDeposit = false;
+                if (addCategoryType == "d") isDeposit = true;
+
+                var category = new Category
+                {
+                    HouseholdId = budget.HouseholdId,
+                    Name = categoryName,
+                    IsDeposit = isDeposit,
+                    Default = false,
+                    Active = true
+                };
+
+                db.Categories.Add(category);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Budgets", new { id = budgetId });
+        }
+
+        public ActionResult DeleteCategory(int id, int budgetId)
+        {
+            var category = db.Categories.Find(id);
+            if (category != null)
+            {
+                category.Active = false;
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Edit", "Budgets", new { id = budgetId });
         }
 
         protected override void Dispose(bool disposing)
