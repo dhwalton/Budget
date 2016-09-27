@@ -11,7 +11,6 @@ namespace Budgeter.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        
         public ApplicationUser()
         {
             Transactions = new HashSet<Transaction>();
@@ -26,10 +25,11 @@ namespace Budgeter.Models
         [Display(Name = "Display Name")]
         public string DisplayName { get; set; }
         public bool Demo { get; set; }
-        //public int HouseholdId { get; set; }
-        //public virtual Household Household { get; set; }
+        public int HouseholdId { get; set; }
+        public virtual Household Household { get; set; }
 
         public ICollection<Transaction> Transactions { get; set; }
+        public ICollection<Household> Households { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

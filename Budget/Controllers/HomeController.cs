@@ -13,6 +13,20 @@ namespace Budgeter.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+            // see if user is logged in
+            if (User.Identity.IsAuthenticated)
+            { 
+                // find the user
+                var user = db.Users.Find(User.Identity.GetUserId());
+            
+                // see if the user is part of a household
+                if (user.Household != null)
+                {
+                    // redirect to that household
+                    return RedirectToAction("Edit", "Households", new { id = user.HouseholdId });
+                }
+            }
+            // otherwise, go to the landing page
             return View();
         }
 

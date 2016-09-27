@@ -68,6 +68,7 @@ namespace Budget.Controllers
             if (ModelState.IsValid)
             {
                 budgetItem.Amount = Math.Abs(budgetItem.Amount);
+                budgetItem.Active = true;
                 if (!TransactionHelper.CategoryIsDeposit(budgetItem.CategoryId))
                 {
                     budgetItem.Amount *= -1;

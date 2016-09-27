@@ -58,40 +58,40 @@
                             @Html.AntiForgeryToken()
                             @Html.Hidden("BudgetId", Model.Budget.Id)
                             <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         @Html.Label("Item Name")
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("Name")
+                                    <div class="col-md-9">
+                                        @Html.TextBox("Name", "", new { @class = "form-control" })
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         @Html.Label("Amount")
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("Amount")
+                                    <div class="col-md-9">
+                                        @Html.TextBox("Amount", "", new { @class = "form-control" })
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         @Html.Label("Frequency")
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("Frequency", "", null, new { @type = "number", @min = "1", @max = "52" })
+                                    <div class="col-md-9">
+                                        @Html.TextBox("Frequency", "", null, new { @type = "number", @min = "1", @max = "52", @class="form-control" })
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         @Html.Label("Category")
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.DropDownList("CategoryId", ViewBag.IncomeCategories as SelectList)
+                                    <div class="col-md-9">
+                                        @Html.DropDownList("CategoryId", ViewBag.IncomeCategories as SelectList, new { @class = "form-control" })
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         <input type="submit" />
                                     </div>
                                 </div>
@@ -106,40 +106,40 @@
                             @Html.AntiForgeryToken()
                             @Html.Hidden("BudgetId", Model.Budget.Id)
                             <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         @Html.Label("Item Name")
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("Name")
+                                    <div class="col-md-9">
+                                        @Html.TextBox("Name", "", new { @class = "form-control" })
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         @Html.Label("Amount")
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("Amount")
+                                    <div class="col-md-9">
+                                        @Html.TextBox("Amount", "", new { @class = "form-control" })
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         @Html.Label("Frequency")
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.TextBox("Frequency", "", null, new { @type = "number", @min = "1", @max = "52" })
+                                    <div class="col-md-9">
+                                        @Html.TextBox("Frequency", "", null, new { @type = "number", @min = "1", @max = "52", @class="form-control" })
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         @Html.Label("Category")
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.DropDownList("CategoryId", ViewBag.ExpenseCategories as SelectList)
+                                    <div class="col-md-9">
+                                        @Html.DropDownList("CategoryId", ViewBag.ExpenseCategories as SelectList, new { @class = "form-control" })
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row v-padded">
+                                    <div class="col-md-3">
                                         <input type="submit" />
                                     </div>
                                 </div>
@@ -282,9 +282,20 @@
 
 </div>
 
+<div class="modal-div light content-col auto-height" id="edit-budget-item-modal">
+   
+</div>
 
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/js/Budget.js")
+        <script>
+            $(document).ready(function () {
+                $('.form-control').focus(function () {
+                    $('.row').css('background-color', 'rgba(0,0,0,0)');
+                    $(this).parent().parent().css('background-color', 'rgba(0,0,0,0.1)');
+                });
+            });
+        </script>
     }

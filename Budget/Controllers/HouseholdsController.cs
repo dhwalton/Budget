@@ -239,7 +239,6 @@ namespace Budget.Controllers
                         Text = user.FirstName + " " + user.LastName + " has invited you to join the household '" + household.Name + "'"
                                + "on Budgeter! Click the link below to register or login!\n\n"
                                + "http://dhwalton-budget.azurewebsites.net"
-
                     };
 
                     message.AddTo(model.EmailAddress);
@@ -261,7 +260,6 @@ namespace Budget.Controllers
 
                     // success
                     return 1;
-                
                 }
                 else
                 {
@@ -321,8 +319,6 @@ namespace Budget.Controllers
                 var user = db.Users.Find(userId);
                 if (household.Users.Contains(user))
                 {
-                                     
-                    
                     // if so, redirect to Details
                     return RedirectToAction("Details", new { id = id });
                 }

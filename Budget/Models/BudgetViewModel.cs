@@ -16,8 +16,8 @@ namespace Budgeter.Models
         public BudgetViewModel(int Id)
         {
             Budget = db.Budgets.Find(Id);
-            IncomeBudgetItems = Budget.BudgetItems.Where(i => i.Amount > 0).ToList();
-            ExpenseBudgetItems = Budget.BudgetItems.Where(i => i.Amount <= 0).ToList();
+            IncomeBudgetItems = Budget.BudgetItems.Where(i => i.Amount > 0).Where(i => i.Active).ToList();
+            ExpenseBudgetItems = Budget.BudgetItems.Where(i => i.Amount <= 0).Where(i => i.Active).ToList();
             IncomeCategories = db.Categories.Where(c => c.IsDeposit).ToList();
             ExpenseCategories = db.Categories.Where(c => c.IsDeposit == false).ToList();
         }

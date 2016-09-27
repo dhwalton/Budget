@@ -95,5 +95,28 @@ $(document).ready(function () {
         $('#add-category-modal').modal();
     });
 
+    // edit budget item modal
+    $('.btn-edit-budget-item').click(function () {
+        var id = $(this).parent().attr('id');
+        var url = "../../BudgetItems/EditModal/" + id;
+        var modalId = "#edit-budget-item-modal";
+        $.get(url, function (html) {
+            $(modalId).html(html);
+            $(modalId).modal();
+        });
+    });
+
+    $('.btn-delete-budget-item').click(function () {
+        var id = $(this).parent().attr('id');
+        var row = $(this).parent().parent();
+        var url = "../../BudgetItems/DeleteBudgetItem/" + id;
+        $.post(url, function (html) {
+            row.remove();
+        });
+
+        
+
+    });
+
 });
 

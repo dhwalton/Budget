@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    //Layout = "_EmptyLayout";
 }
 
 @using (Html.BeginForm("EditModal","Transactions")) 
@@ -38,8 +39,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @{ var tDate = Model.Date.Date.ToShortDateString(); }
-                @Html.Editor("Date", new { htmlAttributes = new { @class = "form-control datepicker", @value=tDate } })
+                @{ var tDate = Model.Date.ToString("MM/dd/yyyy"); }
+                @*@Html.EditorFor(m => m.Date, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control datepicker" } })*@
+                @Html.Editor("Date", new { htmlAttributes = new { @class = "form-control datepicker", @Value=tDate } })
                 @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -62,4 +64,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/js/DateTimePicker.js")
 }

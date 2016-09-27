@@ -9,7 +9,7 @@ using System.Text;
 
 public class HouseholdHelper
 {
-    private ApplicationDbContext db = new ApplicationDbContext();
+    private ApplicationDbContext db = new ApplicationDbContext(); 
 
     public void AddUserToHousehold(string userId, int householdId)
     {

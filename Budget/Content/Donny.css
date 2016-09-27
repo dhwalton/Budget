@@ -188,3 +188,7 @@ a {
 #this-category form table tr td, #add-category-modal table tr td {
     padding: 0.5em 0.75em;
 }
+
+.v-padded {
+    padding: 0.5em 0;
+}
